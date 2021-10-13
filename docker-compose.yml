@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:14
+    #restart: unless-stopped
+    ports:
+      - 1432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=gundamseed
+      - POSTGRES_USER=odoo
+    volumes:
+      - varlibpostgresqldata:/var/lib/postgresql/data
+  web:
+    image: odoo:15
+    #restart: unless-stopped
+    volumes:
+      - ./etcodoo:/etc/odoo
+      - ./mntextraaddons:/mnt/extra-addons
+      - varlibodoo:/var/lib/odoo
+    ports:
+      - 1369:8069
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=gundamseed
+    depends_on:
+      - "db"
+
+volumes:
+  varlibpostgresqldata:
+  varlibodoo:
