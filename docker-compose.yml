@@ -20,7 +20,7 @@ services:
       - ./mntextraaddons:/mnt/extra-addons
       - varlibodoo:/var/lib/odoo
     ports:
-      - 1369:8069
+      - 1569:8069
     environment:
       - HOST=db
       - USER=odoo
