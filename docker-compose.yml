@@ -8,26 +8,27 @@ services:
       - 1432:5432
     environment:
       - POSTGRES_DB=postgres
-      - POSTGRES_PASSWORD=gundamseed
+      - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - varlibpostgresqldata:/var/lib/postgresql/data
+      - ./varlibpostgresqldatapgdata:/var/lib/postgresql/data/pgdata
   web:
     image: odoo:15
     #restart: unless-stopped
     volumes:
       - ./etcodoo:/etc/odoo
       - ./mntextraaddons:/mnt/extra-addons
-      - varlibodoo:/var/lib/odoo
+      - ./varlibodoo:/var/lib/odoo
     ports:
       - 1569:8069
     environment:
       - HOST=db
       - USER=odoo
-      - PASSWORD=gundamseed
-    depends_on:
-      - "db"
+      - PASSWORD=odoo
+#    depends_on:
+#      - "db"
 
-volumes:
-  varlibpostgresqldata:
-  varlibodoo:
+#volumes:
+#  varlibpostgresqldata:
+#  varlibodoo:
